@@ -6,7 +6,12 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Day01 {
+    private static final Logger logger = LogManager.getLogger(Day01.class);
+
     public static void main(String[] args){
         String day = "01";
         File inputFile = new File("src/main/resources/DAY/"+day+".txt");
@@ -23,10 +28,10 @@ public class Day01 {
                 sum += concatDigit(getFirstCalibration(line), getLastCalibration(line));
             }
             
-            System.out.println("PartTwo result --> Sum: " + sum);
+            logger.info("PartTwo result --> Sum: " + sum);
             reader.close();
         } catch (FileNotFoundException e) {
-            System.err.println("File not found");
+            logger.error("File not found", e);
         }
         
     }
