@@ -12,8 +12,8 @@ public class Day03 {
     private static final Logger logger = LogManager.getLogger(Day01.class);
     
     public static void main(String[] args){
-        String day = "sample";
-        //String day = "03";
+        //String day = "sample";
+        String day = "03";
         File inputFile = new File("src/main/resources/DAY/"+day+".txt");
         partOneAndTwo(inputFile);
     }
@@ -99,18 +99,31 @@ public class Day03 {
             logger.info("PartOne result --> sumPartOne: " + sumPartOne);
             
             //Part TWO
-            //parcours des nombres, et noter si ils sont proches d'un gear
-            for(NumberDay03 number : numbers) {
-                //Check if the number is close to a gear
-                for (GearDay03 gear : gears) {
-                    if (number.row == gear.row && number.startPosition <= gear.column && number.endPosition >= gear.column) {
-                        //add the number to the sum
-                        sumPartTwo += number.value;
+            //parcours des gears, pour chaque gear, vérifier s'il est proche de deux nombres, si oui, additionner au résultat final le produit des deux nombres
+            for (GearDay03 gear : gears) {
+                int numberOfNumbers = 0;
+                int firstNumber = 0;
+                int secondNumber = 0;
+                for (NumberDay03 number : numbers) {
+                    if (
+                        //row + 1, row, row - 1
+                        Math.abs(number.row - gear.row) <= 1 
+                        // gear.column between number.startPosition and number.endPosition
+                        && gear.column >= number.startPosition -1
+                        && gear.column <= number.endPosition +1) {
+                        numberOfNumbers++;
+                        if (numberOfNumbers == 1) {
+                            firstNumber = number.value;
+                        } else if (numberOfNumbers == 2) {
+                            secondNumber = number.value;
+                            break;
+                        }
                     }
                 }
+                if (numberOfNumbers == 2) {
+                    sumPartTwo += firstNumber * secondNumber;
+                }
             }
-            
-            String a = "";
             
             logger.info("PartTwo result --> sumPartTwo: " + sumPartTwo);
             
