@@ -16,3 +16,4 @@ Ce repo est un template pour initier des projets pour résoudre les puzzles de l
 * J04 : 78 ms
 * J05 : Part 1 : 50ms / Part 2 : 1426959 ms (24 minutes)
   * Amélioration Part 2 : 4minutes40 : il y a 10 groupes de graines : utilisation de 10 threads. Puis amélioration avec 20 threads en divisant les listes de seeds par 2
+  * Inspiré par la solution de [Daniel Persson](https://github.com/kalaspuffar) : https://github.com/kalaspuffar/advent2023/blob/main/src/main/java/org/ea/Day5.java
