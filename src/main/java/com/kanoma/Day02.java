@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Day02 {
-    private static final Logger logger = LogManager.getLogger(Day01.class);
+    private static final Logger logger = LogManager.getLogger(Day02.class);
     
     public static void main(String[] args){
         //String day = "sample";

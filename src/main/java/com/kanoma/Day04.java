@@ -2,6 +2,8 @@ package com.kanoma;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -9,14 +11,18 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Day04 {
-    private static final Logger logger = LogManager.getLogger(Day01.class);
+    private static final Logger logger = LogManager.getLogger(Day04.class);
     
     public static void main(String[] args){
+        var startTimer = Instant.now();
         //String day = "sample";
         String day = "04";
         File inputFile = new File("src/main/resources/DAY/"+day+".txt");
-        //partOne(inputFile);
+        partOne(inputFile);
         partTwo(inputFile);
+
+        var endTimer = Instant.now();
+        logger.info("Execution time: " + Duration.between(startTimer, endTimer).toMillis() + " ms");
     }
     
     public static void partOne(File file) {
@@ -53,7 +59,6 @@ public class Day04 {
                     //sumPartOne = 2 power (goodCardsInHand - 1)
                     sumPartOne += (int) Math.pow(2, goodCardsInHand - 1);
                 }
-                logger.info("Game " + gameId + " --> goodCardsInHand: " + goodCardsInHand + " --> sumPartOne: " + sumPartOne);
             }
             
             logger.info("PartOne result --> sumPartOne: " + sumPartOne);
