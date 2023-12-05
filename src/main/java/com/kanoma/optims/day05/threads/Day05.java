@@ -1,12 +1,16 @@
-package com.kanoma;
+package com.kanoma.optims.day05.threads;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,7 +30,6 @@ public class Day05 {
     }
     
     public static void partOne(File file) {
-        boolean runPartTwo = false;
         try {
             Day05 day05 = new Day05();
             ArrayList<Transformateur> transformateurs = new ArrayList<>();
@@ -105,46 +108,31 @@ public class Day05 {
             // les graines sont en fait des ranges de valeurs
             
             // pour chaque graine, appliquer tous les transformateurs
-            if(runPartTwo){
-                long lowestValuePartTwo = Long.MAX_VALUE;
-                for (int i=0; i<initSeeds.length; i++){
-                    long seed = initSeeds[i];
-                    
-                    i++;
-                    long length = initSeeds[i];
-                    
-                    //Boucler sur seed + length
-                    for (int j=0; j<length; j++){
-                        long seedToApply = seed + j;
-                        
-                        //Passer par chaque transformateur et appliquer les sources
-                        for (Transformateur transformateur : transformateurs){
-                            //Passer par chaque source et appliquer la transformation
-                            for (Sources source : transformateur.sources){
-                                // si la graine est dans l'intervalle 'from - > from+length', on applique la transformation to+length
-                                if (seedToApply >= source.from && seedToApply <= source.from + source.length-1){
-                                    seedToApply = seedToApply - source.from + source.to;
-                                    break;
-                                }
-                            }
-                        }
-                        
-                        //keep the lowest seed value
-                        if (seedToApply < lowestValuePartTwo){
-                            lowestValuePartTwo = seedToApply;
-                        }
-                    }
-                    
-                }
+            //il y a 10 groupes de graines
+            // on démarre 10 threads
+            ExecutorService fixedPool = Executors.newFixedThreadPool(20);
+            List<Long> threadResult = Collections.synchronizedList(new ArrayList<>());
+            
+            for (int i=0; i<initSeeds.length; i++){
+                long seed = initSeeds[i];
                 
-                logger.info("PartTwo result --> lowestValuePartTwo: " + lowestValuePartTwo);
+                i++;
+                long length = initSeeds[i];
                 
+                fixedPool.submit(new TestThread(seed, length/2, transformateurs, threadResult));
+                fixedPool.submit(new TestThread(seed + length/2, length/2, transformateurs, threadResult));
             }
             
+            fixedPool.shutdown();
+            fixedPool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+            
+            logger.info("All threads finished");
+            long lowestValuePartTwo = Collections.min(threadResult);
+            logger.info("PartTwo result --> lowestValuePartTwo: " + lowestValuePartTwo);
             
             reader.close();
-        } catch (FileNotFoundException e) {
-            logger.error("File not found", e);
+        } catch (Exception e) {
+            logger.error("Exception !! ", e);
         }
         
     }
@@ -157,6 +145,11 @@ public class Day05 {
         long length;
         long from;
         long to;
+        
+        @Override
+        public String toString() {
+            return "Sources [length=" + length + ", from=" + from + ", to=" + to + "]";
+        }
     }
     
     

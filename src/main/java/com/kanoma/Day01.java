@@ -2,6 +2,8 @@ package com.kanoma;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,11 +13,14 @@ import org.apache.logging.log4j.Logger;
 
 public class Day01 {
     private static final Logger logger = LogManager.getLogger(Day01.class);
-
+    
     public static void main(String[] args){
+        var startTimer = Instant.now();
         String day = "01";
         File inputFile = new File("src/main/resources/DAY/"+day+".txt");
         partTwo(inputFile);
+        var endTimer = Instant.now();
+        logger.info("Execution time: " + Duration.between(startTimer, endTimer).toMillis() + " ms");
     }
     
     private static void partTwo(File file) {

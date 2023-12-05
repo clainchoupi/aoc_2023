@@ -2,6 +2,8 @@ package com.kanoma;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,10 +14,13 @@ public class Day03 {
     private static final Logger logger = LogManager.getLogger(Day03.class);
     
     public static void main(String[] args){
+        var startTimer = Instant.now();
         //String day = "sample";
         String day = "03";
         File inputFile = new File("src/main/resources/DAY/"+day+".txt");
         partOneAndTwo(inputFile);
+        var endTimer = Instant.now();
+        logger.info("Execution time: " + Duration.between(startTimer, endTimer).toMillis() + " ms");
     }
     
     public static void partOneAndTwo(File file) {
@@ -106,11 +111,11 @@ public class Day03 {
                 int secondNumber = 0;
                 for (NumberDay03 number : numbers) {
                     if (
-                        //row + 1, row, row - 1
-                        Math.abs(number.row - gear.row) <= 1 
-                        // gear.column between number.startPosition and number.endPosition
-                        && gear.column >= number.startPosition -1
-                        && gear.column <= number.endPosition +1) {
+                    //row + 1, row, row - 1
+                    Math.abs(number.row - gear.row) <= 1 
+                    // gear.column between number.startPosition and number.endPosition
+                    && gear.column >= number.startPosition -1
+                    && gear.column <= number.endPosition +1) {
                         numberOfNumbers++;
                         if (numberOfNumbers == 1) {
                             firstNumber = number.value;
