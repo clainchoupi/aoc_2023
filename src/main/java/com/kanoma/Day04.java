@@ -34,8 +34,6 @@ public class Day04 {
             while (reader.hasNext()){
                 String line = reader.nextLine();
                 String[] splitLine = line.split(":");
-                String gameId = splitLine[0].split(" ")[1];
-                
                 String[] parts = splitLine[1].trim().split("\\|");
                 
                 // split one or more spaces
@@ -89,8 +87,6 @@ public class Day04 {
                 
                 String line = reader.nextLine();
                 String[] splitLine = line.split(":");
-                String gameId = splitLine[0].split(" ")[1];
-                
                 String[] parts = splitLine[1].trim().split("\\|");
                 
                 // split one or more spaces

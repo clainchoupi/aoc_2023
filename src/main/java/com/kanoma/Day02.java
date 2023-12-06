@@ -84,7 +84,6 @@ public class Day02 {
                 String line = reader.nextLine();
                 
                 String[] splitLine = line.split(":");
-                String gameId = splitLine[0].split(" ")[1];
                 String[] parts = splitLine[1].trim().split(";");
                 
                 int maxBlue = 0, maxRed = 0, maxGreen = 0;
