@@ -10,11 +10,11 @@ Ce repo est un template pour initier des projets pour résoudre les puzzles de l
 
 
 ## Résultats
-* J01 : 84 ms
-* J02 : 71 ms
-* J03 : 31 ms
-* J04 : 78 ms
-* J05 : Part 1 : 50ms / Part 2 : 1426959 ms (24 minutes)
-  * Amélioration Part 2 : 4minutes40 : il y a 10 groupes de graines : utilisation de 10 threads. Puis amélioration avec 20 threads en divisant les listes de seeds par 2
-  * Inspiré par la solution de [Daniel Persson](https://github.com/kalaspuffar) : https://github.com/kalaspuffar/advent2023/blob/main/src/main/java/org/ea/Day5.java
-* J06 : 191 ms
+| Jour 	| <div style="width:70px">Réussite ?</div> 	| Temps d'exécution 	| <div style="width:400px">A retenir</div> 	| Optimisations ? 	|
+|---	|---	|---	|---	|---	|
+| J01 	| ✅ / ✅ 	| 84 ms 	| Très dur pour un Jour 1 de AOC<br> * Pattern avec ?= pour gérer les chevauchements 	|  	|
+| J02 	| ✅ / ✅  	| 71 ms 	| Simple, pattern D+ pour gérer les numériques 	|  	|
+| J03 	| ✅ / ✅  	| 31 ms 	| Compliqué, formule pour trouver les valeurs adjacentes intéressante 	|  	|
+| J04 	| ✅ / ✅  	| 78 ms 	| Simple, juste à gérer la logique de la part2 avec la répétition des n cartes 	|  	|
+| J05 	| ✅ / ✅  	| part 1 : 50 ms<br>part 2 : 24 minutes 	| 🤯<br> Utilisation de long car int trop petit, 2 milliards d'itérations en brutforce  	| * part 2 : en utilisant 10 threads car il y a 10 groupes de seeds<br>* puis amélioration à **4 minutes 40 sec**, en passant à 20 threads et en divisant chaque groupe de seeds par 2<br>* tester en Java 21 ?<br>* tester avec VirtualThreads ? <br><br>* Inspiré par la solution de [Daniel Persson](https://github.com/kalaspuffar) : https://github.com/kalaspuffar/advent2023/blob/main/src/main/java/org/ea/Day5.java 	|
+| J06 	| ✅ / ✅  	| 88 ms 	|  	|  	|  	|
